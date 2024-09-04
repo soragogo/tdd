@@ -20,6 +20,12 @@ class TestPong < Minitest::Test
         assert_equal 0, @pong.player2_score
     end
     
+    def test_pong_has_ball
+        assert_equal 8, @pong.size
+        assert_equal @pong.width/2, @pong.ball_x
+        assert_equal @pong.height/2, @pong.ball_y
+        assert_equal 1, @pong.vec_x**2 + @pong.vec_y**2
+    end
 
     def test_pong_has_paddles
         assert_equal 10, @pong.paddle_width
