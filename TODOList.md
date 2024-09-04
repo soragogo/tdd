@@ -8,8 +8,6 @@
 *
 *
 *
-*
-*
-*
-*
-*
+### notes
+[Gosuチュートリアル](https://gist.github.com/myokoym/7148859)
+* Gosu::Windowのupdateとdrawを上書きする。
