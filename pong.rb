@@ -2,6 +2,7 @@ class Pong
     attr_reader :width, :height
     attr_reader :player1_score, :player2_score
     attr_reader :paddle_width, :paddle_height, :paddle_speed, :paddle1_y, :paddle2_y, :paddle1_x, :paddle2_x
+    attr_reader :ball_x, :ball_y, :ball_vec_x, :ball_vec_y, :ball_size
     def initialize
         @width = 800
         @height = 600
@@ -14,5 +15,17 @@ class Pong
         @paddle2_y = @height/2
         @paddle1_x = 0
         @paddle2_x = @width - 10
+        
+        @ball_size = 8
+        reset_ball
+    end
+    def reset_ball
+        @ball_x = @width/2
+        @ball_y = @height/2
+        @ball_vec_x = rand(-1..1)
+        @ball_vec_y = rand(-1..1)
+        length = Math.sqrt(@ball_vec_x**2 + @ball_vec_y**2)
+        @ball_vec_x /= length
+        @ball_vec_y /= length
     end
 end
