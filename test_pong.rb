@@ -38,4 +38,8 @@ class TestPong < Minitest::Test
         assert_equal @pong.width - 10, @pong.paddle2_x
     end
 
+    def test_pong_inherits_from_gosu_window
+        assert_equal true, @pong.is_a?(Gosu::Window)
+    end
+
 end
