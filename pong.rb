@@ -15,17 +15,17 @@ class Pong
         @paddle2_y = @height/2
         @paddle1_x = 0
         @paddle2_x = @width - 10
-        
         @ball_size = 8
         reset_ball
     end
     def reset_ball
         @ball_x = @width/2
         @ball_y = @height/2
-        @ball_vec_x = rand(-1..1)
-        @ball_vec_y = rand(-1..1)
+        @ball_vec_x = rand(-1.0..1.0)
+        @ball_vec_y = rand(-1.0..1.0)
         length = Math.sqrt(@ball_vec_x**2 + @ball_vec_y**2)
         @ball_vec_x /= length
         @ball_vec_y /= length
     end
+
 end
