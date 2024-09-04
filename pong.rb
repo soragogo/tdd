@@ -1,4 +1,6 @@
-class Pong
+require 'gosu'
+
+class Pong < Gosu::Window
     attr_reader :width, :height
     attr_reader :player1_score, :player2_score
     attr_reader :paddle_width, :paddle_height, :paddle_speed, :paddle1_y, :paddle2_y, :paddle1_x, :paddle2_x
@@ -27,5 +29,6 @@ class Pong
         @ball_vec_x /= length
         @ball_vec_y /= length
     end
+
 
 end
