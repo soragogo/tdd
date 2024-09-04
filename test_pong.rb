@@ -1,5 +1,8 @@
 require_relative 'pong'
 require 'minitest/autorun'
+require 'minitest/reporters'
+
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 class TestPong < Minitest::Test
     def setup
@@ -12,6 +15,10 @@ class TestPong < Minitest::Test
     end
 
 
+    def test_pong_has_players
+        assert_equal 0, @pong.player1_score
+        assert_equal 0, @pong.player2_score
+    end
     
 
 end
