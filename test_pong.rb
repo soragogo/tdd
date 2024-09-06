@@ -1,6 +1,7 @@
 require_relative 'pong'
 require 'minitest/autorun'
 require 'minitest/reporters'
+require 'mocha/minitest'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
@@ -42,4 +43,8 @@ class TestPong < Minitest::Test
         assert_equal true, @pong.is_a?(Gosu::Window)
     end
 
+    def test_pong_calls_parent_constructor
+        g = Gosu::Window.any_instance.expects(:initialize).with(800, 600, false).once
+        Pong.new
+    end
 end
