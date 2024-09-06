@@ -6,9 +6,9 @@ class Pong < Gosu::Window
     attr_reader :paddle_width, :paddle_height, :paddle_speed, :paddle1_y, :paddle2_y, :paddle1_x, :paddle2_x
     attr_reader :ball_x, :ball_y, :ball_vec_x, :ball_vec_y, :ball_size
     def initialize
-        super(800, 600, false)
         @width = 800
         @height = 600
+        super(@width, @height, false)
         @player1_score = 0
         @player2_score = 0
         @paddle_width = 10
