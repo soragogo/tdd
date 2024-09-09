@@ -44,7 +44,34 @@ class TestPong < Minitest::Test
     end
 
     def test_pong_calls_parent_constructor
-        g = Gosu::Window.any_instance.expects(:initialize).with(800, 600, false).once
+        Gosu::Window.any_instance.expects(:initialize).with(800, 600, false).once
         Pong.new
     end
+
+    def test_up_paddle_movement
+        @pong.expects(:button_down?).with(Gosu::KB_W).returns(true)
+        @pong.expects(:button_down?).with(Gosu::KB_S).returns(false)
+        @pong.expects(:button_down?).with(Gosu::KB_UP).returns(true)
+        @pong.expects(:button_down?).with(Gosu::KB_DOWN).returns(false)
+        @pong.update
+        assert_equal @pong.height / 2 - @pong.paddle_speed, @pong.paddle1_y
+        assert_equal @pong.height / 2 - @pong.paddle_speed, @pong.paddle2_y
+    end
+
+    def test_down_paddle_movement
+        @pong.expects(:button_down?).with(Gosu::KB_W).returns(false)
+        @pong.expects(:button_down?).with(Gosu::KB_S).returns(true)
+        @pong.expects(:button_down?).with(Gosu::KB_UP).returns(false)
+        @pong.expects(:button_down?).with(Gosu::KB_DOWN).returns(true)
+        @pong.update
+        assert_equal @pong.height / 2 + @pong.paddle_speed, @pong.paddle1_y
+        assert_equal @pong.height / 2 + @pong.paddle_speed, @pong.paddle2_y
+    end
+
+
+    
+
+
+
 end
+
