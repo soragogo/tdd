@@ -31,5 +31,26 @@ class Pong < Gosu::Window
         @ball_vec_y /= length
     end
 
+    def update
+        if button_down?(Gosu::KB_W)
+            puts "Gosu::KB_W pressed"
+            @paddle1_y -= @paddle_speed
+        end
+        if button_down?(Gosu::KB_S)
+        puts "Gosu::KB_S pressed"
+        @paddle1_y += @paddle_speed
+        end
+        if button_down?(Gosu::KB_UP)
+        puts "Gosu::KB_UP pressed"
+        @paddle2_y -= @paddle_speed
+        end
+        if button_down?(Gosu::KB_DOWN)
+        puts "Gosu::KB_DOWN pressed"
+        @paddle2_y += @paddle_speed
+        end
+
+    end
+
+
 
 end
