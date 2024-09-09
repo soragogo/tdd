@@ -49,6 +49,8 @@ class Pong < Gosu::Window
         @paddle2_y += @paddle_speed
         end
 
+        @ball_x += @ball_vec_x
+        @ball_y += @ball_vec_y
     end
 
 
