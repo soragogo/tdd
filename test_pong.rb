@@ -68,6 +68,12 @@ class TestPong < Minitest::Test
         assert_equal @pong.height / 2 + @pong.paddle_speed, @pong.paddle2_y
     end
 
+    def test_ball_movement
+        @pong.update
+        assert_equal @pong.width / 2 + @pong.ball_vec_x, @pong.ball_x
+        assert_equal @pong.height / 2 + @pong.ball_vec_y, @pong.ball_y
+    end
+
 
     
 
