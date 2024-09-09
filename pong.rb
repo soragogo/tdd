@@ -51,6 +51,10 @@ class Pong < Gosu::Window
 
         @ball_x += @ball_vec_x
         @ball_y += @ball_vec_y
+
+        if @ball_y < 0 or @ball_y > @height
+            @ball_vec_y *= -1
+        end
     end
 
 
