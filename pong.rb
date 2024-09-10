@@ -55,8 +55,15 @@ class Pong < Gosu::Window
         end
         # 仮にボールが左右の壁に当たった場合、ボールをリセットする
         if @ball_x <= 0 or @ball_x >= @width
+            if @ball_x <= 0
+                @player2_score += 1
+            elsif @ball_x >= @width
+                @player1_score += 1
+            end
             reset_ball
         end
+
+        # ボールがパドルに当たった場合、ボールを跳ね返す
     end
 
 
