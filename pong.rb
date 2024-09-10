@@ -35,30 +35,26 @@ class Pong < Gosu::Window
 
     def update
         if button_down?(Gosu::KB_W)
-            puts "Gosu::KB_W pressed"
             @paddle1_y -= @paddle_speed
         end
         if button_down?(Gosu::KB_S)
-        puts "Gosu::KB_S pressed"
         @paddle1_y += @paddle_speed
         end
         if button_down?(Gosu::KB_UP)
-        puts "Gosu::KB_UP pressed"
         @paddle2_y -= @paddle_speed
         end
         if button_down?(Gosu::KB_DOWN)
-        puts "Gosu::KB_DOWN pressed"
         @paddle2_y += @paddle_speed
         end
 
         @ball_x += @ball_vec_x
         @ball_y += @ball_vec_y
 
-        if @ball_y < 0 or @ball_y > @height
+        if @ball_y <= 0 or @ball_y >= @height
             @ball_vec_y *= -1
         end
         # 仮にボールが左右の壁に当たった場合、ボールをリセットする
-        if @ball_x < 0 or @ball_x > @width
+        if @ball_x <= 0 or @ball_x >= @width
             reset_ball
         end
     end
