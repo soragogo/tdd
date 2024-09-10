@@ -11,17 +11,20 @@ class TestPong < Minitest::Test
     end
 
     def test_pong_has_width_and_height
+        setup
         assert_equal 800, @pong.width
         assert_equal 600, @pong.height
     end
 
 
     def test_pong_has_players
+        setup
         assert_equal 0, @pong.player1_score
         assert_equal 0, @pong.player2_score
     end
-    
+
     def test_pong_has_ball
+        setup
         assert_equal 8, @pong.ball_size
         assert_equal @pong.width/2, @pong.ball_x
         assert_equal @pong.height/2, @pong.ball_y
@@ -30,6 +33,7 @@ class TestPong < Minitest::Test
     end
 
     def test_pong_has_paddles
+        setup
         assert_equal 10, @pong.paddle_width
         assert_equal 70, @pong.paddle_height
         assert_equal 10, @pong.paddle_speed
@@ -40,15 +44,18 @@ class TestPong < Minitest::Test
     end
 
     def test_pong_inherits_from_gosu_window
+        setup
         assert_equal true, @pong.is_a?(Gosu::Window)
     end
 
     def test_pong_calls_parent_constructor
+        setup
         Gosu::Window.any_instance.expects(:initialize).with(800, 600, false).once
         Pong.new
     end
 
     def test_up_paddle_movement
+        setup
         @pong.expects(:button_down?).with(Gosu::KB_W).returns(true)
         @pong.expects(:button_down?).with(Gosu::KB_S).returns(false)
         @pong.expects(:button_down?).with(Gosu::KB_UP).returns(true)
@@ -59,6 +66,7 @@ class TestPong < Minitest::Test
     end
 
     def test_down_paddle_movement
+        setup
         @pong.expects(:button_down?).with(Gosu::KB_W).returns(false)
         @pong.expects(:button_down?).with(Gosu::KB_S).returns(true)
         @pong.expects(:button_down?).with(Gosu::KB_UP).returns(false)
@@ -69,28 +77,45 @@ class TestPong < Minitest::Test
     end
 
     def test_ball_movement
+        setup
         @pong.update
         assert_equal @pong.width / 2 + @pong.ball_vec_x, @pong.ball_x
         assert_equal @pong.height / 2 + @pong.ball_vec_y, @pong.ball_y
     end
 
     def test_ball_bounce
+        setup
         @pong.instance_variable_set(:@ball_y, 0)
+        @pong.instance_variable_set(:@ball_vec_y,-0.21)
         before_bounce = @pong.ball_vec_y
         @pong.update
         assert_equal -before_bounce, @pong.ball_vec_y
     end
 
     def test_ball_reset
+        setup
         @pong.instance_variable_set(:@ball_x, 0)
-        before_bounce = @pong.ball_vec_x
+        @pong.instance_variable_set(:@ball_vec_x,-0.21)
         @pong.update
         assert_equal @pong.width / 2, @pong.ball_x
         assert_equal @pong.height / 2, @pong.ball_y
     end
 
+    def test_score_increment
+        setup
+        @pong.instance_variable_set(:@ball_x, 0)
+        @pong.instance_variable_set(:@ball_vec_x,-0.21)
+        @pong.update
+        assert_equal 1, @pong.player2_score
 
-    
+        @pong.instance_variable_set(:@ball_x, @pong.width)
+        @pong.instance_variable_set(:@ball_vec_x,0.21)
+        @pong.update
+        assert_equal 1, @pong.player1_score
+    end
+
+
+
 
 
 

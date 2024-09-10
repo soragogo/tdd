@@ -17,6 +17,7 @@ GEM
 
 PLATFORMS
   -darwin-23
+  arm64-darwin-23
 
 DEPENDENCIES
   gosu
@@ -25,4 +26,4 @@ DEPENDENCIES
   mocha
 
 BUNDLED WITH
-   2.4.19
+   2.4.22
