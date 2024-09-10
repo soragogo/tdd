@@ -81,6 +81,14 @@ class TestPong < Minitest::Test
         assert_equal -before_bounce, @pong.ball_vec_y
     end
 
+    def test_ball_reset
+        @pong.instance_variable_set(:@ball_x, 0)
+        before_bounce = @pong.ball_vec_x
+        @pong.update
+        assert_equal @pong.width / 2, @pong.ball_x
+        assert_equal @pong.height / 2, @pong.ball_y
+    end
+
 
     
 

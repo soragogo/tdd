@@ -24,7 +24,9 @@ class Pong < Gosu::Window
     def reset_ball
         @ball_x = @width/2
         @ball_y = @height/2
-        @ball_vec_x = rand(-1.0..1.0)
+        a = rand(0.5..1.0)
+        b = rand(-1.0..-0.5)
+        @ball_vec_x = a**2 > b**2 ? a : b
         @ball_vec_y = rand(-1.0..1.0)
         length = Math.sqrt(@ball_vec_x**2 + @ball_vec_y**2)
         @ball_vec_x /= length
@@ -55,8 +57,13 @@ class Pong < Gosu::Window
         if @ball_y < 0 or @ball_y > @height
             @ball_vec_y *= -1
         end
+        # 仮にボールが左右の壁に当たった場合、ボールをリセットする
+        if @ball_x < 0 or @ball_x > @width
+            reset_ball
+        end
     end
 
 
-
 end
+
+# Pong.new.show

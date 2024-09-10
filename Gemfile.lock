@@ -10,7 +10,10 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    mocha (2.4.5)
+      ruby2_keywords (>= 0.0.5)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
 
 PLATFORMS
   -darwin-23
@@ -19,6 +22,7 @@ DEPENDENCIES
   gosu
   minitest
   minitest-reporters
+  mocha
 
 BUNDLED WITH
    2.4.19
