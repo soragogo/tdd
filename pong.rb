@@ -4,7 +4,7 @@ class Pong < Gosu::Window
     attr_reader :width, :height
     attr_reader :player1_score, :player2_score
     attr_reader :paddle_width, :paddle_height, :paddle_speed, :paddle1_y, :paddle2_y, :paddle1_x, :paddle2_x
-    attr_reader :ball_x, :ball_y, :ball_vec_x, :ball_vec_y, :ball_size
+    attr_reader :ball_x, :ball_y, :ball_vec_x, :ball_vec_y, :ball_size, :ball_speed
     attr_reader :font
     def initialize
         @width = 800
@@ -20,6 +20,7 @@ class Pong < Gosu::Window
         @paddle1_x = 0
         @paddle2_x = @width - 10
         @ball_size = 8
+        @ball_speed = 2
         reset_ball
         @font = Gosu::Font.new(30)
     end
@@ -49,8 +50,8 @@ class Pong < Gosu::Window
         @paddle2_y += @paddle_speed
         end
 
-        @ball_x += @ball_vec_x
-        @ball_y += @ball_vec_y
+        @ball_x += @ball_vec_x * @ball_speed
+        @ball_y += @ball_vec_y * @ball_speed
 
         if @ball_y <= 0 or @ball_y >= @height
             @ball_vec_y *= -1
@@ -68,6 +69,7 @@ class Pong < Gosu::Window
         # ボールがパドルに当たった場合、ボールを跳ね返す
         if (@ball_x <= @paddle_width and @ball_y.between?(@paddle1_y, @paddle1_y + @paddle_height))|| (@ball_x >= @width - @paddle_width and @ball_y.between?(@paddle2_y, @paddle2_y + @paddle_height))
             @ball_vec_x *= -1
+            @ball_speed += 0.5
         end
     end
 
@@ -85,4 +87,4 @@ class Pong < Gosu::Window
 
 end
 
-# Pong.new.show
+Pong.new.show
