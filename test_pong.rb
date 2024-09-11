@@ -131,5 +131,10 @@ class TestPong < Minitest::Test
         @pong.update
         assert_equal -0.21, @pong.ball_vec_x
     end
+
+    def test_font
+        setup
+        assert defined? @pong.font
+    end
 end
 
