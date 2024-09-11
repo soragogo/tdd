@@ -5,6 +5,17 @@ require 'mocha/minitest'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
+def test_paddle_min_max(paddle)
+    setup
+    @pong.instance_variable_set(paddle, -10)
+    @pong.update
+    assert_equal 0, @pong.instance_variable_get(paddle)
+
+    @pong.instance_variable_set(paddle, @pong.height + 10)
+    @pong.update
+    assert_equal @pong.height - @pong.paddle_height, @pong.instance_variable_get(paddle)
+end
+
 class TestPong < Minitest::Test
     def setup
         @pong = Pong.new
@@ -137,24 +148,14 @@ class TestPong < Minitest::Test
         assert_equal ball_speed + 0.5, @pong.ball_speed
     end
 
+
+
     def test_paddle1_min_max
-        setup
-        @pong.instance_variable_set(:@paddle1_y, -10)
-        @pong.update
-        assert_equal 0, @pong.paddle1_y
-        @pong.instance_variable_set(:@paddle1_y, @pong.height + 10)
-        @pong.update
-        assert_equal @pong.height - @pong.paddle_height, @pong.paddle1_y
+    test_paddle_min_max("@paddle1_y")
     end
 
     def test_paddle2_min_max
-        setup
-        @pong.instance_variable_set(:@paddle2_y, -10)
-        @pong.update
-        assert_equal 0, @pong.paddle2_y
-        @pong.instance_variable_set(:@paddle2_y, @pong.height + 10)
-        @pong.update
-        assert_equal @pong.height - @pong.paddle_height, @pong.paddle2_y
+    test_paddle_min_max("@paddle2_y")
     end
 
     def test_font
