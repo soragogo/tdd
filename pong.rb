@@ -50,6 +50,20 @@ class Pong < Gosu::Window
         @paddle2_y += @paddle_speed
         end
 
+        if @paddle1_y < 0
+            @paddle1_y = 0
+        end
+        if @paddle1_y > @height - @paddle_height
+            @paddle1_y = @height - @paddle_height
+        end
+
+        if @paddle2_y < 0
+            @paddle2_y = 0
+        end
+        if @paddle2_y > @height - @paddle_height
+            @paddle2_y = @height - @paddle_height
+        end
+
         @ball_x += @ball_vec_x * @ball_speed
         @ball_y += @ball_vec_y * @ball_speed
 
@@ -87,4 +101,4 @@ class Pong < Gosu::Window
 
 end
 
-Pong.new.show
+# Pong.new.show
