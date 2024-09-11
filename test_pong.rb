@@ -136,5 +136,17 @@ class TestPong < Minitest::Test
         setup
         assert defined? @pong.font
     end
+
+
+    def test_draw
+        Gosu.expects(:draw_rect).with(@pong.paddle1_x, @pong.paddle1_y, @pong.paddle_width, @pong.paddle_height, Gosu::Color::WHITE).once
+        Gosu.expects(:draw_rect).with(@pong.paddle2_x, @pong.paddle2_y, @pong.paddle_width, @pong.paddle_height, Gosu::Color::WHITE).once
+        Gosu.expects(:draw_rect).with(@pong.width / 2, 0, 2, @pong.height, Gosu::Color::WHITE).once
+        Gosu.expects(:draw_rect).with(@pong.ball_x, @pong.ball_y, @pong.ball_size, @pong.ball_size, Gosu::Color::WHITE).once
+        @pong.font.expects(:draw_markup).with(@pong.player1_score, @pong.width / 2 - 50, 20, 0).once
+        @pong.font.expects(:draw_markup).with(@pong.player2_score, @pong.width / 2 + 20, 20, 0).once
+
+        @pong.draw
+      end
 end
 

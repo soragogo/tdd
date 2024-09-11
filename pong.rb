@@ -70,6 +70,16 @@ class Pong < Gosu::Window
             @ball_vec_x *= -1
         end
     end
+
+
+
+    def draw
+        Gosu.draw_rect(@paddle1_x, @paddle1_y, @paddle_width, @paddle_height, Gosu::Color::WHITE)
+        Gosu.draw_rect(@paddle2_x, @paddle2_y, @paddle_width, @paddle_height, Gosu::Color::WHITE)
+        Gosu.draw_rect(@width/2, 0, 2, @height, Gosu::Color::WHITE)
+        Gosu.draw_rect(@ball_x, @ball_y, @ball_size, @ball_size, Gosu::Color::WHITE)
+        @font.draw_markup(@player1_score, @width/2 - 50, 20, 0)
+        @font.draw_markup(@player2_score, @width/2 + 20, 20, 0)
     end
 
 
