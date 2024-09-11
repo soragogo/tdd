@@ -101,4 +101,4 @@ class Pong < Gosu::Window
 
 end
 
-# Pong.new.show
+Pong.new.show
