@@ -19,8 +19,8 @@ class Pong < Gosu::Window
         @paddle2_y = @height/2
         @paddle1_x = 0
         @paddle2_x = @width - 10
-        @ball_size = 8
-        @ball_speed = 2
+        @ball_size = 10
+        @ball_speed = 5
         reset_ball
         @font = Gosu::Font.new(30)
     end
@@ -37,6 +37,12 @@ class Pong < Gosu::Window
     end
 
     def update
+        if @player1_score >= 10 or @player2_score >= 10
+            if button_down?(Gosu::KB_C) && button_down?(Gosu::KB_LEFT_CONTROL)
+                initialize
+            end
+            return
+        end
         if button_down?(Gosu::KB_W)
             @paddle1_y -= @paddle_speed
         end
@@ -48,6 +54,10 @@ class Pong < Gosu::Window
         end
         if button_down?(Gosu::KB_DOWN)
         @paddle2_y += @paddle_speed
+        end
+
+        if button_down?(Gosu::KB_ESCAPE)
+            close
         end
 
         if @paddle1_y < 0
@@ -83,7 +93,7 @@ class Pong < Gosu::Window
         # ボールがパドルに当たった場合、ボールを跳ね返す
         if (@ball_x <= @paddle_width and @ball_y.between?(@paddle1_y, @paddle1_y + @paddle_height))|| (@ball_x >= @width - @paddle_width and @ball_y.between?(@paddle2_y, @paddle2_y + @paddle_height))
             @ball_vec_x *= -1
-            @ball_speed += 0.5
+            @ball_speed += 1
         end
     end
 
@@ -92,13 +102,21 @@ class Pong < Gosu::Window
     def draw
         Gosu.draw_rect(@paddle1_x, @paddle1_y, @paddle_width, @paddle_height, Gosu::Color::WHITE)
         Gosu.draw_rect(@paddle2_x, @paddle2_y, @paddle_width, @paddle_height, Gosu::Color::WHITE)
-        Gosu.draw_rect(@width/2, 0, 2, @height, Gosu::Color::WHITE)
-        Gosu.draw_rect(@ball_x, @ball_y, @ball_size, @ball_size, Gosu::Color::WHITE)
-        @font.draw_markup(@player1_score, @width/2 - 50, 20, 0)
-        @font.draw_markup(@player2_score, @width/2 + 20, 20, 0)
+        if @player1_score >= 10
+            @font.draw_markup("Player1 Win!!!", @width/2 - 100, @height/2, 0, 1, 1, Gosu::Color::WHITE)
+        elsif @player2_score >= 10
+            @font.draw_markup("Player2 Win!!!", @width/2 - 100, @height/2, 0, 1, 1, Gosu::Color::WHITE)
+        else
+            Gosu.draw_rect(@width/2, 0, 2, @height, Gosu::Color::WHITE)
+            Gosu.draw_rect(@ball_x, @ball_y, @ball_size, @ball_size, Gosu::Color::WHITE)
+            @font.draw_markup(@player1_score, @width/2 - 50, 20, 0)
+            @font.draw_markup(@player2_score, @width/2 + 20, 20, 0)
+        end
     end
 
 
 end
 
-Pong.new.show
+if __FILE__ == $PROGRAM_NAME
+    Pong.new.show
+end

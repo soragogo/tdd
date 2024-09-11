@@ -36,7 +36,7 @@ class TestPong < Minitest::Test
 
     def test_pong_has_ball
         setup
-        assert_equal 8, @pong.ball_size
+        assert_equal 10, @pong.ball_size
         assert_equal @pong.width/2, @pong.ball_x
         assert_equal @pong.height/2, @pong.ball_y
         assert 0.98 < @pong.ball_vec_x**2 + @pong.ball_vec_y**2
@@ -71,6 +71,8 @@ class TestPong < Minitest::Test
         @pong.expects(:button_down?).with(Gosu::KB_S).returns(false)
         @pong.expects(:button_down?).with(Gosu::KB_UP).returns(true)
         @pong.expects(:button_down?).with(Gosu::KB_DOWN).returns(false)
+        @pong.expects(:button_down?).with(Gosu::KB_ESCAPE).returns(false)
+
         @pong.update
         assert_equal @pong.height / 2 - @pong.paddle_speed, @pong.paddle1_y
         assert_equal @pong.height / 2 - @pong.paddle_speed, @pong.paddle2_y
@@ -82,6 +84,7 @@ class TestPong < Minitest::Test
         @pong.expects(:button_down?).with(Gosu::KB_S).returns(true)
         @pong.expects(:button_down?).with(Gosu::KB_UP).returns(false)
         @pong.expects(:button_down?).with(Gosu::KB_DOWN).returns(true)
+        @pong.expects(:button_down?).with(Gosu::KB_ESCAPE).returns(false)
         @pong.update
         assert_equal @pong.height / 2 + @pong.paddle_speed, @pong.paddle1_y
         assert_equal @pong.height / 2 + @pong.paddle_speed, @pong.paddle2_y
@@ -92,7 +95,7 @@ class TestPong < Minitest::Test
         @pong.update
         assert_equal @pong.width / 2 + @pong.ball_vec_x*@pong.ball_speed, @pong.ball_x
         assert_equal @pong.height / 2 + @pong.ball_vec_y*@pong.ball_speed, @pong.ball_y
-        assert_equal 2, @pong.ball_speed
+        assert_equal 5, @pong.ball_speed
     end
 
     def test_ball_bounce
@@ -134,7 +137,7 @@ class TestPong < Minitest::Test
         @pong.instance_variable_set(:@ball_vec_x, -0.21)
         @pong.update
         assert_equal 0.21, @pong.ball_vec_x
-        assert_equal ball_speed + 0.5, @pong.ball_speed
+        assert_equal ball_speed + 1, @pong.ball_speed
     end
 
     def test_paddle2_bounce
@@ -145,7 +148,7 @@ class TestPong < Minitest::Test
         @pong.instance_variable_set(:@ball_vec_x, 0.21)
         @pong.update
         assert_equal -0.21, @pong.ball_vec_x
-        assert_equal ball_speed + 0.5, @pong.ball_speed
+        assert_equal ball_speed + 1, @pong.ball_speed
     end
 
 
@@ -173,6 +176,9 @@ class TestPong < Minitest::Test
         @pong.font.expects(:draw_markup).with(@pong.player2_score, @pong.width / 2 + 20, 20, 0).once
 
         @pong.draw
-      end
+    end
+
+
+
 end
 
