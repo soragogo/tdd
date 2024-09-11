@@ -79,8 +79,9 @@ class TestPong < Minitest::Test
     def test_ball_movement
         setup
         @pong.update
-        assert_equal @pong.width / 2 + @pong.ball_vec_x, @pong.ball_x
-        assert_equal @pong.height / 2 + @pong.ball_vec_y, @pong.ball_y
+        assert_equal @pong.width / 2 + @pong.ball_vec_x*@pong.ball_speed, @pong.ball_x
+        assert_equal @pong.height / 2 + @pong.ball_vec_y*@pong.ball_speed, @pong.ball_y
+        assert_equal 2, @pong.ball_speed
     end
 
     def test_ball_bounce
@@ -116,20 +117,24 @@ class TestPong < Minitest::Test
 
     def test_paddle1_bounce
         setup
+        ball_speed = @pong.ball_speed
         @pong.instance_variable_set(:@ball_x, 10)
         @pong.instance_variable_set(:@ball_y, @pong.paddle1_y + @pong.paddle_height/2)
         @pong.instance_variable_set(:@ball_vec_x, -0.21)
         @pong.update
         assert_equal 0.21, @pong.ball_vec_x
+        assert_equal ball_speed + 0.5, @pong.ball_speed
     end
 
     def test_paddle2_bounce
         setup
+        ball_speed = @pong.ball_speed
         @pong.instance_variable_set(:@ball_x, @pong.width - 10)
         @pong.instance_variable_set(:@ball_y, @pong.paddle2_y + @pong.paddle_height/2)
         @pong.instance_variable_set(:@ball_vec_x, 0.21)
         @pong.update
         assert_equal -0.21, @pong.ball_vec_x
+        assert_equal ball_speed + 0.5, @pong.ball_speed
     end
 
     def test_font
