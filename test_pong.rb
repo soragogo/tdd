@@ -117,7 +117,7 @@ class TestPong < Minitest::Test
     def test_paddle1_bounce
         setup
         @pong.instance_variable_set(:@ball_x, 10)
-        @pong.instance_variable_set(:@ball_y, @pong.paddle1_y / 2)
+        @pong.instance_variable_set(:@ball_y, @pong.paddle1_y + @pong.paddle_height/2)
         @pong.instance_variable_set(:@ball_vec_x, -0.21)
         @pong.update
         assert_equal 0.21, @pong.ball_vec_x
@@ -126,7 +126,7 @@ class TestPong < Minitest::Test
     def test_paddle2_bounce
         setup
         @pong.instance_variable_set(:@ball_x, @pong.width - 10)
-        @pong.instance_variable_set(:@ball_y, @pong.paddle2_y / 2)
+        @pong.instance_variable_set(:@ball_y, @pong.paddle2_y + @pong.paddle_height/2)
         @pong.instance_variable_set(:@ball_vec_x, 0.21)
         @pong.update
         assert_equal -0.21, @pong.ball_vec_x
