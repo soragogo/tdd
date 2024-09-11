@@ -5,6 +5,7 @@ class Pong < Gosu::Window
     attr_reader :player1_score, :player2_score
     attr_reader :paddle_width, :paddle_height, :paddle_speed, :paddle1_y, :paddle2_y, :paddle1_x, :paddle2_x
     attr_reader :ball_x, :ball_y, :ball_vec_x, :ball_vec_y, :ball_size
+    attr_reader :font
     def initialize
         @width = 800
         @height = 600
@@ -20,6 +21,7 @@ class Pong < Gosu::Window
         @paddle2_x = @width - 10
         @ball_size = 8
         reset_ball
+        @font = Gosu::Font.new(30)
     end
     def reset_ball
         @ball_x = @width/2
