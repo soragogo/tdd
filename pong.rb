@@ -64,6 +64,10 @@ class Pong < Gosu::Window
         end
 
         # ボールがパドルに当たった場合、ボールを跳ね返す
+        if (@ball_x <= @paddle_width and @ball_y.between?(@paddle1_y, @paddle1_y + @paddle_height))|| (@ball_x >= @width - @paddle_width and @ball_y.between?(@paddle2_y, @paddle2_y + @paddle_height))
+            @ball_vec_x *= -1
+        end
+    end
     end
 
 
